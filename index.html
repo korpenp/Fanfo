@@ -253,19 +253,24 @@
       font-size: 1.5rem;
       color: var(--secondary);
       margin-right: 1rem;
-    }
-    .profile-image-container {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    .profile-image {
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 5px solid var(--secondary);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
+    }       
+  /* About Image Section Fix */
+  .profile-image-container {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 10px; /* Added padding to prevent cutting */
+  }
+  
+  .profile-image {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: contain; /* Changed from 'cover' to 'contain' to ensure full image visibility */
+    border: 5px solid var(--secondary);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background-color: #f5f5f5; /* Added background in case image has transparency */
+    padding: 5px; /* Added padding inside the frame */
+  }
     footer {
       background: var(--dark);
       color: white;
@@ -293,6 +298,112 @@
         height: 200px;
       }
     }
+
+     /* Updated Gallery Styles */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    /* Slider Container */
+    .slider-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      height: 250px;
+    }
+    
+    /* Slider Track */
+    .slider {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s ease;
+    }
+    
+    /* Individual Slides */
+    .slider img {
+      min-width: 100%;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    
+    /* Slider Caption */
+    .slider-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    
+    /* Navigation Buttons */
+    .slider-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    
+    .slider-nav button {
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-size: 1.5rem;
+      transition: background 0.3s;
+    }
+    
+    .slider-nav button:hover {
+      background: rgba(0,0,0,0.8);
+    }
+    
+    /* Regular gallery items (non-sliders) */
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      height: 250px;
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+    
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 1rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+    
+    .gallery-item:hover .gallery-caption {
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
@@ -307,7 +418,6 @@
       <button class="tab-btn" onclick="openTab('coaching')">Coaching Career</button>
       <button class="tab-btn" onclick="openTab('playing')">Playing Career</button>
       <button class="tab-btn" onclick="openTab('gallery')">Gallery</button>
-      <button class="tab-btn" onclick="openTab('contact')">Contact</button>
     </div>
 
     <!-- About Tab -->
@@ -327,7 +437,7 @@
         <div class="contact-card">
           <i class="fas fa-phone"></i>
           <h3>Phone</h3>
-          <p>+358 41 314 6472</p>
+          <p> +32 471 60 77 03</p>
         </div>
         <div class="contact-card">
           <i class="fas fa-envelope"></i>
@@ -445,30 +555,61 @@
       </div>
     </div>
 
-    <!-- Gallery Tab -->
-    <div id="gallery" class="tab-content">
+     <!-- Gallery Tab -->
+     <div id="gallery" class="tab-content">
       <h2>Gallery</h2>
       
       <div class="gallery">
+        <!-- Slider 1 -->
+        <div class="slider-container">
+          <div class="slider" id="slider1">
+            <img src="images/training.jpeg" alt="Training Session">
+            <img src="images/Training1.jpeg" alt="Team Celebration">
+            <img src="images/training section.jpeg" alt="Game Strategy">
+          </div>
+          <div class="slider-caption">Training Sessions</div>
+          <div class="slider-nav">
+            <button onclick="prevSlide('slider1')">❮</button>
+            <button onclick="nextSlide('slider1')">❯</button>
+          </div>
+        </div>
+        
+        <!-- Slider 2 -->
+        <div class="slider-container">
+          <div class="slider" id="slider2">
+            <img src="images/individual training.jpeg" alt="Player Development">
+            <img src="images/training 2.jpeg" alt="Team Training">
+          </div>
+          <div class="slider-caption">Player Development</div>
+          <div class="slider-nav">
+            <button onclick="prevSlide('slider2')">❮</button>
+            <button onclick="nextSlide('slider2')">❯</button>
+          </div>
+        </div>
+        
+
+         <!-- Slider 3 -->
+         <div class="slider-container">
+          <div class="slider" id="slider3">
+            <img src="images/senegal.jpeg" alt="Player Development">
+            <img src="images/senegal1.jpeg" alt="Team Training">
+          </div>
+          <div class="slider-caption">Senegal National Team</div>
+          <div class="slider-nav">
+            <button onclick="prevSlide('slider3')">❮</button>
+            <button onclick="nextSlide('slider3')">❯</button>
+          </div>
+        </div>
+
+
+        <!-- Regular gallery items -->
         <div class="gallery-item">
-          <img src="images/training.jpeg">
-          <div class="gallery-caption">Training Session with U14 Team</div>
+          <img src="images/team talk.jpeg" alt="Award Ceremony">
+          <div class="gallery-caption">Team Talk</div>
         </div>
         <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80" alt="Team Celebration">
-          <div class="gallery-caption">2023 U14 Tournament Victory</div>
-        </div>
-        <div class="gallery-item">
-          <img src="images/training section.jpeg">
-          <div class="gallery-caption">Game Strategy Session</div>
-        </div>
-        <div class="gallery-item">
-          <img src="images/individual training.jpeg" alt="Player Development">
-          <div class="gallery-caption">Individual Player Coaching</div>
-        </div>
-        <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80" alt="Team Photo">
-          <div class="gallery-caption">2024 U16 Team</div>
+          <img src="images/TP.jpeg" alt="Award Ceremony">
+          <div class="gallery-caption">TP 47 Juniors</div>
         </div>
         <div class="gallery-item">
           <img src="images/kokkola cup.jpeg" alt="Award Ceremony">
@@ -476,46 +617,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Contact Tab -->
-    <div id="contact" class="tab-content">
-      <h2>Contact Me</h2>
-      
-      <div class="contact-info">
-        <div class="contact-card">
-          <i class="fas fa-phone"></i>
-          <h3>Phone</h3>
-          <p> +32 471 60 77 03</p>
-        </div>
-        <div class="contact-card">
-          <i class="fas fa-envelope"></i>
-          <h3>Email</h3>
-          <p>fanfo33@gmail.com</p>
-        </div>
-        <div class="contact-card">
-          <i class="fas fa-map-marker-alt"></i>
-          <h3>Address</h3>
-          <p>Belgium</p>
-        </div>
-      </div>
-
-      <h2>References</h2>
-      <div class="contact-info">
-        <div class="contact-card">
-          <i class="fas fa-user-tie"></i>
-          <h3>George Lawrence</h3>
-          <p>FIFA Licensed Agent</p>
-          <p>+44 7816361383</p>
-        </div>
-        <div class="contact-card">
-          <i class="fas fa-user-tie"></i>
-          <h3>Tuomas Lantto</h3>
-          <p>TP-47 Football Club President</p>
-          <p>+358 40 591 9275</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <footer>
     <p>&copy; 2024 Armand François Badji. All rights reserved.</p>
@@ -542,6 +643,88 @@
       document.getElementById(tabName).classList.add('active');
       event.currentTarget.classList.add('active');
     }
+  </script>
+   <script>
+    function openTab(tabName) {
+      // Hide all tab contents
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      // Remove active class from all buttons
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // Show selected tab and mark button as active
+      document.getElementById(tabName).classList.add('active');
+      event.currentTarget.classList.add('active');
+      
+      // Initialize sliders if gallery tab is opened
+      if (tabName === 'gallery') {
+        initializeSliders();
+      } else {
+        // Stop all sliders when another tab is opened
+        for (const timer in sliderTimers) {
+          clearInterval(sliderTimers[timer]);
+        }
+      }
+    }
+
+    // Slider functionality
+    const sliderTimers = {};
+    
+    function initializeSliders() {
+      const sliders = document.querySelectorAll('.slider');
+      sliders.forEach(slider => {
+        const sliderId = slider.id;
+        // Set initial position
+        slider.dataset.currentPosition = 0;
+        slider.style.transform = 'translateX(0%)';
+        // Start timer
+        startSliderTimer(sliderId);
+      });
+    }
+    
+    function nextSlide(sliderId) {
+      const slider = document.getElementById(sliderId);
+      const slides = slider.querySelectorAll('img');
+      const currentPosition = parseInt(slider.dataset.currentPosition);
+      const nextPosition = (currentPosition + 1) % slides.length;
+      
+      slider.style.transform = `translateX(-${nextPosition * 100}%)`;
+      slider.dataset.currentPosition = nextPosition;
+      resetSliderTimer(sliderId);
+    }
+
+    function prevSlide(sliderId) {
+      const slider = document.getElementById(sliderId);
+      const slides = slider.querySelectorAll('img');
+      const currentPosition = parseInt(slider.dataset.currentPosition);
+      const prevPosition = (currentPosition - 1 + slides.length) % slides.length;
+      
+      slider.style.transform = `translateX(-${prevPosition * 100}%)`;
+      slider.dataset.currentPosition = prevPosition;
+      resetSliderTimer(sliderId);
+    }
+
+    function startSliderTimer(sliderId) {
+      sliderTimers[sliderId] = setInterval(() => {
+        nextSlide(sliderId);
+      }, 3000);
+    }
+
+    function resetSliderTimer(sliderId) {
+      clearInterval(sliderTimers[sliderId]);
+      startSliderTimer(sliderId);
+    }
+
+    // Initialize sliders when page loads if gallery tab is active
+    document.addEventListener('DOMContentLoaded', function() {
+      if (document.getElementById('gallery').classList.contains('active')) {
+        initializeSliders();
+      }
+    });
   </script>
 </body>
 </html>
